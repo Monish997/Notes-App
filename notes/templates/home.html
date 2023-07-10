@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+<header>
+  <h1>Notes App</h1>
+  <p>Take and organize your notes effortlessly.</p>
+</header>
+
+<main>
+  <section id="features">
+    <h2>Features</h2>
+    <ul>
+      <li>Simple and intuitive note-taking interface</li>
+      <li>Organize your notes into different categories or tags</li>
+      <li>Search and filter notes easily</li>
+      <li>Sync your notes across devices</li>
+      <li>Customizable themes and preferences</li>
+    </ul>
+  </section>
+
+  <section id="reviews">
+    <h2>Customer Reviews</h2>
+    {% for review in reviews %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <h3>{{ review.name }}</h3>
+            </div>
+            <p class="article-content">{{ review.content }}</p>
+          </div>
+        </article>
+    {% endfor %}
+  </section>
+  
+  
+{% endblock content %}

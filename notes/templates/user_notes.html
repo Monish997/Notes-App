@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+  {% if notes.total == 0 %}
+    <h2>No notes found.</h2>
+  {% endif %}
+    <a href="{{ url_for('notes.new_note') }}">
+      <button type="submit" class="btn btn-outline-info">+ New Note</button>
+    </a>
+    {% for note in notes.items %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <h2><a class="article-title" href="{{ url_for('notes.note', note_id=note.id) }}">{{ note.title }}</a></h2>
+              <small class="text-muted">{{ note.updated_at.strftime('%c') }}</small>
+            </div>
+            <p class="article-content">{{ note.content }}</p>
+          </div>
+        </article>
+    {% endfor %}
+    {% for page_num in notes.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if notes.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('notes.user_notes', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('notes.user_notes', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+{% endblock content %}
